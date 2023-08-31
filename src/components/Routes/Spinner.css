@@ -1,0 +1,11 @@
+.spinner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.text_center{
+    display: flex;
+    justify-content: center !important ;
+    margin-top: 100px;
+}

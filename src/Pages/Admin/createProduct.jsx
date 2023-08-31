@@ -1,0 +1,178 @@
+import React, { useEffect, useState } from 'react'
+import Layout from '../pages'
+import AdminMenu from '../../common/AdminMenu';
+import "./Admindashboard.css";
+import { useNavigate } from 'react-router-dom';
+import toast from "react-hot-toast";
+import axios from "axios";
+import { Select } from "antd";
+import { useAuth } from '../../context/auth';
+const { Option } = Select;
+
+function CreateProduct() {
+  const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [shipping, setShipping] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [auth] = useAuth();
+
+  //get all category
+  const getAllCategory = async () => {
+    try {
+      const { data } = await axios.get("https://ecom-back-1.onrender.com/api/category/get-category")
+      if (data?.success) {
+        setCategories(data?.category);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong in getting category");
+    }
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+
+
+  //create product function
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    try {
+      const productData = new FormData();
+      productData.append("name", name);
+      productData.append("description", description);
+      productData.append("price", price);
+      productData.append("quantity", quantity);
+      productData.append("photo", photo);
+      productData.append("category", category);
+      const { data } = axios.post(
+        "https://ecom-back-1.onrender.com/api/product/create-product",
+        productData,
+        {
+          headers:{
+              'authorization': "Bearer " + auth?.token
+          }
+        }
+      );
+      if (data?.success) {
+        toast.error(data?.message);
+      } else {
+        toast.success("Product Created Successfully");
+        navigate("/dashboard/admin/products");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong");
+    }
+  };
+
+  return (
+    <Layout>
+      <div className='adminDashboardContainer'>
+        <AdminMenu />
+        <div className='contentBox'>
+          <h1> Create Product</h1>
+          <div>
+            <Select
+              bordered={false}
+              placeholder="Select a category"
+              size='large'
+              showSearch
+              onChange={(value) => { setCategory(value)}}
+              className='categorySelect-box'>
+              {categories?.map(c => (
+                <Option key={c._id} value={c._id}>{c.name}</Option>
+              ))}
+            </Select>
+
+            <div className='create-product-upload-photo'>
+              <label >
+                {photo ? photo.name : "Upload Photo Min-1mb"}
+                <input type="file" name="photo" accept='image/*'
+                  onChange={(e) => setPhoto(e.target.files[0])} hidden />
+              </label>
+            </div>
+
+            <div>
+              {photo && (
+                <div className="">
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="product_photo"
+                    height={"300px"}
+                    className="img-responsive"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="create-product-addName">
+              <input
+                type="text"
+                value={name}
+                placeholder="write a name"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="create-product-addDesc">
+              <textarea
+                type="text"
+                value={description}
+                placeholder="write a description"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
+            <div className="create-product-priceAdd">
+              <input
+                type="number"
+                value={price}
+                placeholder="write a Price"
+                className="form-control"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+            <div className="create-product-quantityAdd">
+              <input
+                type="number"
+                value={quantity}
+                placeholder="write a quantity"
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+            </div>
+            <div >
+              <Select
+                bordered={false}
+                placeholder="Select Shipping "
+                size="large"
+                showSearch
+                className="create-product-addShipping"
+                onChange={(value) => {
+                  setShipping(value);
+                }}
+              >
+                <Option value="0">No</Option>
+                <Option value="1">Yes</Option>
+              </Select>
+            </div>
+
+            <div >
+              <button
+                className="create-product-btn"
+                onClick={handleCreate}>
+                CREATE PRODUCT
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  )
+}
+
+export default CreateProduct;

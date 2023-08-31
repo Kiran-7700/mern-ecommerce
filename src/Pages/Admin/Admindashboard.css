@@ -1,0 +1,135 @@
+.adminDashboardContainer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+   
+}
+.contentBox{
+    margin-left: 180px;
+    margin-top: 20px;
+}
+.contentBox-product{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.contentBox h1{
+    font-size :36px ;
+}
+.card{
+    width: 550px;
+    height: auto ;
+    border: 1px solid;
+    padding: 20px;
+    line-height: 40px;
+    margin-top: 40px;
+}
+
+.category-table, td, th{
+    font-family:'Poppins', sans-serif!important;
+    margin-left: 500px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+   
+    border-collapse: collapse;
+    width: 50%;
+    text-align: left;
+}
+.category-table th,td{
+    height: 60px;
+    border-bottom: 1px solid black;
+    padding: 15px 0px;
+}
+.category-table td{
+  height: 40px;
+}
+.edit-btn{
+    height: 30px;
+    width: 60px;
+    border-radius: 8px;
+    background-color: rgb(140, 140, 246);
+    color: white;
+}
+.delete-btn{
+    height: 30px;
+    width: 60px;
+    border-radius: 8px;
+    background-color: rgb(249, 76, 96);
+    color: white;
+    margin-left: 8px;
+}
+
+.categorySelect-box{
+    width: 475px;
+    border: 1px solid black;
+}
+
+.create-product-upload-photo{
+    width: 475px;
+    border: 1px solid;
+    margin-top: 22px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.img-responsive{
+    margin-top: 30px;
+    margin-left: 90px;
+    margin-bottom: 20px;
+}
+.create-product-addName input,
+.create-product-addDesc textarea,
+.create-product-priceAdd input,
+.create-product-quantityAdd input,
+.create-product-addShipping 
+{
+    width: 476px;
+    padding: 8px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    
+}
+.create-product-addShipping {
+    border: 1px solid;
+}
+.create-product-btn{
+    background: #e94560;
+    padding: 13px 40px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card-img-top{
+    height: 220px;
+    width: 280px;
+    padding: 20px;
+}
+.show-all-products{
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    margin-left: 70px;
+    
+}
+.product-card{
+    width: 300px;
+    height: auto ;
+    border: 1px solid;
+   margin-top: 20px;
+   margin-bottom: 5px;
+}
+.contentBox-product h1{
+    text-align: center;
+}
+.admin-menu-div{
+    margin-right: 10px;
+}
+.card-title{
+    font-size: 18px;
+}
+.card-text{
+    font-size: 15px;
+}
